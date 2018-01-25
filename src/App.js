@@ -10,12 +10,17 @@ import logo from './logo.svg';
 import './App.css';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import rootReducer from './rootReducer';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import MoviesList from './MoviesList';
 import MovieDetail from './MovieDetail';
 
-const hello = () => ('hello');
-const store = createStore(hello);
+const store = createStore(
+  rootReducer,
+  {},
+  composeWithDevTools(),
+);
 
 
 const App = () => (
