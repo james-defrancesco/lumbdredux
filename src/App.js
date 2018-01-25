@@ -8,24 +8,33 @@ import {
 } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
 import MoviesList from './MoviesList';
 import MovieDetail from './MovieDetail';
+
+const hello = () => ('hello');
+const store = createStore(hello);
+
+
 const App = () => (
-  <Router>
-    <div className="App">
-      <header className="App-header">
-        <Link to="/">
-          <img src={logo} className="App-logo" alt="logo" />
-        </Link>
-      </header>
-      <Switch>
-        <Route exact path="/" component={MoviesList} />
-        <Route path="/:id" component={MovieDetail} />
-      </Switch>
-    </div>
-  </Router>
+  // provider makes redux available to entire app via CONNECT (another part of redux)
+  <Provider store={store}>
+    <Router>
+      <div className="App">
+        <header className="App-header">
+          <Link to="/">
+            <img src={logo} className="App-logo" alt="logo" />
+          </Link>
+        </header>
+        <Switch>
+          <Route exact path="/" component={MoviesList} />
+          <Route path="/:id" component={MovieDetail} />
+        </Switch>
+      </div>
+    </Router>
+  </Provider>
 );
 
 export default App;
