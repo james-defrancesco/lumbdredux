@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 //stateless functional component
-const Toggle = ({ messageVisibility }) => (
+const Toggle = ({ messageVisibility, dispatch }) => (
     <div>
       {messageVisibility &&
         <p>You will see this if redux is toggled</p>
       }
-        <button>Toggle Me</button>
+      {/* dispatch is a function that accepts an object. in this case, an action. */}
+        <button onClick={() => dispatch({
+          type: 'TOGGLE_MESSAGE',
+        })}>Toggle Me</button>
       </div>
   );
 
