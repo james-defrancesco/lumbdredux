@@ -9,18 +9,23 @@ import {
 import logo from './logo.svg';
 import './App.css';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import rootReducer from './rootReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import Toggle from './Toggle';
+import Toggle from './Toggle'; 
+import logger from 'redux-logger';
+//return a function within our actions (allows to hit api)
+import thunk from 'redux-thunk';
 
 import MoviesList from './MoviesList';
 import MovieDetail from './MovieDetail';
 
+const middleware = [logger, thunk];
+
 const store = createStore(
   rootReducer,
   {},
-  composeWithDevTools(),
+  composeWithDevTools(applyMiddleware(...middleware)),
 );
 
 
