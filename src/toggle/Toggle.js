@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //importing our action
-import { toggleMessage, getMovies } from './actions';
+import { toggleMessage } from './actions';
+import { getMovies } from '../movies/actions';
 
 import { bindActionCreators } from 'redux';
 
@@ -9,7 +10,7 @@ import { bindActionCreators } from 'redux';
 const Toggle = ({ messageVisibility, toggleMessage, getMovies }) => (
     <div>
       {messageVisibility &&
-        <p>You will see this if redux is toggled</p>
+        <p>Redux is toggled</p>
       }
       {/* dispatch is a function that accepts an object. in this case, an action. */}
         <button onClick={toggleMessage}>Toggle Me</button>
@@ -19,7 +20,7 @@ const Toggle = ({ messageVisibility, toggleMessage, getMovies }) => (
 
 
 const mapStateToProps = (state) => ({
-  messageVisibility: state.message.messageVisibility,
+  messageVisibility: state.toggle.messageVisibility,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
