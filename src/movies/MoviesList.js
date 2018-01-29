@@ -8,12 +8,17 @@ import { getMovies } from './actions';
 
 class MoviesList extends PureComponent {
     componentDidMount() {
-      const { getMovies } = this.props;
-      getMovies();
+      const { getMovies, isLoaded, moviesLoadedAt } = this.props;
+  // invalidating our local storage after 1 hour and making a fresh call to the api
+      const oneHour = 60 * 60 * 1000;
+      if (!isLoaded || ((new Date()) - moviesLoadedAt) > oneHour) {
+        getMovies();
+      } 
    }
 
   render() {
-    const { movies } = this.props;
+    const { movies, isLoaded } = this.props;
+    if (!isLoaded) return <h1>Loading</h1>
     return (
       <MovieGrid>
         {movies.map(movie => <Movie key={movie.id} movie={movie} />)}
@@ -24,6 +29,8 @@ class MoviesList extends PureComponent {
 
 const mapStateToProps = (state) => ({
   movies: state.movies.movies,
+  isLoaded: state.movies.moviesLoaded,
+  moviesLoadedAt: state.movies.moviesLoadedAt,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
